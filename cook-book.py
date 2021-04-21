@@ -30,8 +30,10 @@ def get_shop_list_by_dishes(dish, count):
             for ingredient in cook_book[i]:
                 ingredient['quantity'] *= count
                 if ingredient['ingredient_name'] not in shop_list:
-                    shop_list[ingredient['ingredient_name']] = {'measure': ingredient['measure'], 'quantity': ingredient['quantity']}
-
+                    shop_list[ingredient['ingredient_name']] = {
+                        'measure': ingredient['measure'],
+                        'quantity': ingredient['quantity']
+                    }
                 else:
                     shop_list[ingredient['ingredient_name']]['quantity'] += ingredient['quantity']
         else:
