@@ -24,18 +24,21 @@ def read():
 
 def get_shop_list_by_dishes(dish, count):
     cook_book = read()
+    shop_list = {}
     for i in dish:
         if i in cook_book:
-            shop_list = {}
-            for element in cook_book[i]:
-                element['quantity'] *= count
-                shop_element = {
-                        'measure': element['measure'], 'quantity': element['quantity']
-                    }
-                shop_list[element['ingredient_name']] = shop_element
-            pprint(shop_list)
+            for ingredient in cook_book[i]:
+                ingredient['quantity'] *= count
+                if ingredient['ingredient_name'] not in shop_list:
+                    shop_list[ingredient['ingredient_name']] = {'measure': ingredient['measure'], 'quantity': ingredient['quantity']}
+
+                else:
+                    shop_list[ingredient['ingredient_name']]['quantity'] += ingredient['quantity']
+        else:
+            return print('Такого блюда нет!')
+    pprint(shop_list)
 
 
 pprint(read(), width=100)
 print()
-get_shop_list_by_dishes(['запеченный картофель', 'омлет'], 2)
+get_shop_list_by_dishes(['запеченный картофель', 'омлет', 'фахитос'], 2)
